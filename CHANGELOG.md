@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-29
+
+_Stable release based on [0.1.0-rc.1]._
+
 ## [0.1.0-rc.1] - 2026-10-29
 
 ### Added
@@ -22,5 +26,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - New changelog file.
 
 [Unreleased]: https://github.com/internetguru/laravel-images/compare/staging...dev
+[0.1.0]: https://github.com/internetguru/laravel-images/compare/v0.0.0...v0.1.0
 [0.1.0-rc.1]: https://github.com/internetguru/laravel-images/releases/tag/v0.0.0
 [0.0.0]: git log v0.0.0
