@@ -1,0 +1,74 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: xdebug
+          extensions: mbstring, xml, json, bcmath, sqlite3, pdo_sqlite, gd
+
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --no-interaction
+
+      - name: Run tests with coverage
+        run: ./vendor/bin/phpunit --configuration phpunit.xml --coverage-text --coverage-clover=clover.xml
+
+      - name: Make code coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: output/${{ github.ref_name }}-coverage.svg
+          push_badge: false
+
+      - name: Upload badge artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: badge-${{ github.ref_name }}
+          path: output/
+
+  push-badge:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download badge artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: badge-${{ github.ref_name }}
+          path: output/
+
+      - name: Git push to badges branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd output
+          git init -b badges
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+          for i in 1 2 3 4 5; do
+            git fetch origin badges && git reset --hard origin/badges || true
+            git add -A
+            git diff --cached --quiet && echo "No changes to commit" && exit 0
+            git commit -m "Update badge for ${{ github.ref_name }}"
+            git push origin badges && exit 0
+            echo "Push failed, retrying in $((i * 5)) seconds..."
+            sleep $((i * 5))
+          done
+          echo "Failed to push after 5 attempts"
+          exit 1
