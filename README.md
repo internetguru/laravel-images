@@ -76,6 +76,7 @@ Set `signature` to `glide` and keep `key` at the secret Glide signed with (Glide
 
 - `images:prune-cache` deletes renditions older than `prune_after_days`; `--days=0` clears the whole cache, e.g. after changing the sizing rules.
 - A rendition served once it is `renew_after_days` old is served as it is and rendered again by a queued job, so only renditions nobody requested in the meantime are pruned.
+- A source image's width and height are read once per file revision and kept in the application cache (`image-dimensions:*`, without expiry), so a page listing many photos, such as a gallery, costs one cache read per photo rather than reading each file. Replacing a file changes its revision; `images:prune-cache` leaves these entries alone.
 
 ## Testing
 
