@@ -28,6 +28,17 @@ PHP 8.3+, Laravel 12 or 13, GD or Imagick with AVIF and WebP support, and a queu
 ## Usage
 
 ```blade
+<x-ig-images::img path="public/images/menu/steak.jpg" width="400" height="300" alt="Rib-eye steak" />
+```
+
+- The component renders `src`, `srcset`, `width`, `height`, `alt` and `loading`; any other attribute (`class`, `id`, …) is passed through.
+- `alt` is required: describe the image, or leave it empty (`alt=""`) when it is only decoration.
+- `width` and `height` size it as `thumbnail()` does; `full` renders it at its own ratio as `fullImage()` does.
+- `loading` is `lazy` by default. Give the images seen without scrolling `loading="eager"`, and the main one also `fetchpriority="high"`.
+
+Where the component does not fit, use the helpers and put every value on the tag:
+
+```blade
 @php($thumb = thumbnail('public/images/menu/steak.jpg', 400, 300))
 <img src="{{ $thumb['url'] }}" srcset="{{ $thumb['srcset'] }}" width="{{ $thumb['width'] }}" height="{{ $thumb['height'] }}" alt="…">
 ```

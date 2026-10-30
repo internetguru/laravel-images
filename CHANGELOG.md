@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- `<x-ig-images::img>` renders an image from the source disk with its size, `srcset`, a required `alt` and `loading="lazy"` by default.
+
 ## [0.1.0] - 2026-10-29
 
 _Stable release based on [0.1.0-rc.1]._

@@ -4,7 +4,8 @@ Signed, resized and cached images served through one route. The full reference i
 
 ## Usage
 
-- Link an image with `thumbnail($path, $width, $height)` (both dimensions crop, one fits, none fits within `default_size`) or `fullImage($path)` (own ratio, held to `max_size`). Paths are relative to the source disk. Both return `url`, `width`, `height` and `srcset`; put all of them on the `<img>` so the layout does not shift and high-resolution screens get the sharper rendition.
+- Render an image with `<x-ig-images::img path="…" width="…" height="…" alt="…" />` rather than a hand-written `<img>`. It sets the size, `srcset` and `loading="lazy"`; `alt` is required (`alt=""` for decoration), `full` renders the image at its own ratio, and images seen without scrolling take `loading="eager"` (the main one also `fetchpriority="high"`).
+- Where the component does not fit, link an image with `thumbnail($path, $width, $height)` (both dimensions crop, one fits, none fits within `default_size`) or `fullImage($path)` (own ratio, held to `max_size`). Paths are relative to the source disk. Both return `url`, `width`, `height` and `srcset`; put all of them on the `<img>` so the layout does not shift and high-resolution screens get the sharper rendition.
 - Never build image URLs by hand: they carry a signature, and an unsigned or altered URL answers 403.
 - Settings live in `config/ig-images.php`. A site moved from league/glide sets `signature` to `glide` so its old links keep working.
 
