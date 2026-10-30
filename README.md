@@ -28,6 +28,17 @@ PHP 8.3+, Laravel 12 or 13, GD or Imagick with AVIF and WebP support, and a queu
 ## Usage
 
 ```blade
+<x-ig-images::img path="public/images/menu/steak.jpg" width="400" height="300" alt="Rib-eye steak" />
+```
+
+- The component renders `src`, `srcset`, `width`, `height`, `alt` and `loading`; any other attribute (`class`, `id`, …) is passed through.
+- `alt` is required: describe the image, or leave it empty (`alt=""`) when it is only decoration.
+- `width` and `height` size it as `thumbnail()` does; `full` renders it at its own ratio as `fullImage()` does.
+- `loading` is `lazy` by default. Give the images seen without scrolling `loading="eager"`, and the main one also `fetchpriority="high"`.
+
+Where the component does not fit, use the helpers and put every value on the tag:
+
+```blade
 @php($thumb = thumbnail('public/images/menu/steak.jpg', 400, 300))
 <img src="{{ $thumb['url'] }}" srcset="{{ $thumb['srcset'] }}" width="{{ $thumb['width'] }}" height="{{ $thumb['height'] }}" alt="…">
 ```
@@ -65,6 +76,7 @@ Set `signature` to `glide` and keep `key` at the secret Glide signed with (Glide
 
 - `images:prune-cache` deletes renditions older than `prune_after_days`; `--days=0` clears the whole cache, e.g. after changing the sizing rules.
 - A rendition served once it is `renew_after_days` old is served as it is and rendered again by a queued job, so only renditions nobody requested in the meantime are pruned.
+- A source image's width and height are read once per file revision and kept in the application cache (`image-dimensions:*`, without expiry), so a page listing many photos, such as a gallery, costs one cache read per photo rather than reading each file. Replacing a file changes its revision; `images:prune-cache` leaves these entries alone.
 
 ## Testing
 
