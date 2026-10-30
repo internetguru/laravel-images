@@ -4,6 +4,7 @@ namespace InternetGuru\LaravelImages;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +24,8 @@ class ImagesServiceProvider extends ServiceProvider
             ->where('path', '.*')
             ->middleware(config('ig-images.middleware'))
             ->name('ig-images.show');
+
+        Blade::componentNamespace('InternetGuru\LaravelImages\View\Components', 'ig-images');
 
         $this->publishes([__DIR__ . '/../config/ig-images.php' => config_path('ig-images.php')], 'ig-images:config');
 
