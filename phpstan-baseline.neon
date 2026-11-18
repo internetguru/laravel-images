@@ -1,7 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			message: '#^Cannot call method name\(\) on array\<string\>\|Illuminate\\Routing\\Route\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/ImagesServiceProvider.php
+    ignoreErrors: []

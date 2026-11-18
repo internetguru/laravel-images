@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- The image route registers even when `ig-images.middleware` is null.
+
 ## [0.2.0] - 2026-10-30
 
 _Stable release based on [0.2.0-rc.1]._

@@ -22,8 +22,9 @@ class ImagesServiceProvider extends ServiceProvider
     {
         Route::get(trim(config('ig-images.route'), '/') . '/{path}', [ImageController::class, 'show'])
             ->where('path', '.*')
-            ->middleware(config('ig-images.middleware'))
-            ->name('ig-images.show');
+            ->name('ig-images.show')
+            // Last, because middleware(null) returns the middleware list instead of the route
+            ->middleware(config('ig-images.middleware'));
 
         Blade::componentNamespace('InternetGuru\LaravelImages\View\Components', 'ig-images');
 
