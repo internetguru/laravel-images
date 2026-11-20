@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.3.0] - 2026-11-20
+
+_Stable release based on [0.3.0-rc.1]._
+
+## [0.3.0-rc.1] - 2026-11-20
+
+### Fixed
+
+- The image route registers even when `ig-images.middleware` is null.
+
 ## [0.2.0] - 2026-10-30
 
 _Stable release based on [0.2.0-rc.1]._
@@ -33,6 +43,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[0.3.0]: https://github.com/internetguru/laravel-images/compare/v0.2.0...v0.3.0
+[0.3.0-rc.1]: https://github.com/internetguru/laravel-images/releases/tag/v0.2.0
 [0.2.0]: https://github.com/internetguru/laravel-images/compare/v0.1.0...v0.2.0
 [0.2.0-rc.1]: https://github.com/internetguru/laravel-images/releases/tag/v0.1.0
 [0.1.0]: https://github.com/internetguru/laravel-images/compare/v0.0.0...v0.1.0
